@@ -1,0 +1,353 @@
+langs:
+  zh: 简体中文
+  en: English
+  jp: 日本語
+
+command_lang_desc:
+  zh: 请选择语言
+  en: please select a language
+  jp: 言語を選択してください
+
+command_help_desc:
+  zh: 查看帮助
+  en: help
+  jp: ヘルプを見る
+
+bot_link:
+  zh: "BOT：[{}](https://t.me/{})"
+  en: "BOT: [{}](https://t.me/{})"
+  jp: "BOT：[{}](https://t.me/{})"
+
+approve_channel_link:
+  zh: "审核：[{}](https://t.me/c/{}/999999999)"
+  en: "approval: [{}](https://t.me/c/{}/999999999)"
+  jp: "審査：[{}](https://t.me/c/{}/999999999)"
+
+submission_channel_link:
+  zh: "频道：[{}](https://t.me/{})"
+  en: "channel: [{}](https://t.me/{})"
+  jp: "チャンネル：[{}](https://t.me/{})"
+
+# submission_group_link:
+#   zh: '群组：[{}](https://t.me/c/{})'
+#   en: 'group: [{}](https://t.me/c/{})'
+#   jp: 'グループ：[{}](https://t.me/c/{})'
+
+command_help_text:
+  zh: |-
+    欢迎光临，这是一个投稿BOT，使用方法如下：
+    1. 发送 /help 查看帮助
+    2. 发送 /lang 选择语言
+    3. 发送其它任意内容，即可发起投稿
+  en: |-
+    welcome to use this bot, this bot is a simple submission bot, the usage is as follows:
+    1. send /help to get help
+    2. send /lang to select language
+    3. send any other content, you can start to submit
+  jp: |-
+    このBOTを使用していただきありがとうございます。このBOTは簡単な投稿BOTです。使用方法は以下の通りです。
+    1. /helpを送信してヘルプを表示します。
+    2. /langを送信して言語を選択します。
+    3. 他の任意のコンテンツを送信すると、投稿を開始できます。
+
+command_help_text_admin:
+  zh: |-
+    管理员你好，BOT使用方法如下：
+    1. 发送 /ban 封禁用户/解封用户/列出封禁用户
+    2. 发送 /setting 查看并修改配置
+    3. 发送 /lang 选择语言
+    4. 命令的详细使用方法请发送 “/help 命令名称” 查看
+  en: |-
+    admin, welcome to use this bot, this bot is a simple submission bot, the usage is as follows:
+    1. send /ban to ban/unban user/list banned users
+    2. send /setting to check and modify the setting
+    3. send /lang to select language
+    4. send /help command_name to get the detail of the command
+  jp: |-
+    管理者、このBOTを使用していただきありがとうございます。このBOTは簡単な投稿BOTです。使用方法は以下の通りです。
+    1. /banを送信してユーザーを禁止/禁止を解除/禁止されたユーザーをリスト表示します。
+    2. /settingを送信して設定を確認して変更します。
+    3. /langを送信して言語を選択します。
+    4. /helpコマンド名を送信してコマンドの詳細を表示します。
+
+command_setting_desc:
+  zh: bot配置
+  en: bot settings
+  jp: bot設定
+
+command_setting_text:
+  zh: |-
+    当前状态：
+    DEBUG模式：{}
+    审核模式：{}
+  en: |-
+    current status:
+    debug mode: {}
+    approve mode: {}
+  jp: |-
+    現在の状態：
+    DEBUGモード：{}
+    审査モード：{}
+
+command_reply_desc:
+  zh: 回复投稿用户消息
+  en: reply the user
+  jp: 投稿ユーザーにメッセージを返信する
+
+command_reply_comments:
+  zh: |-
+    **来自审稿员的消息：**
+
+    {}
+
+    **请勿直接回复此消息，如需反馈请使用 /feedback 命令**
+  en: |-
+    **message from reviewer:**
+
+    {}
+
+    **please do not reply this message directly, if you need feedback, please use /feedback command**
+  jp: |-
+    **審査員からのメッセージ：**
+
+    {}
+
+    **このメッセージに直接返信しないでください。フィードバックが必要な場合は、/feedbackコマンドを使用してください**
+
+super_admin_operate_error:
+  zh: 无法操作超级管理员
+  en: can not operate super admin
+  jp: 超級管理者を操作できません
+
+command_ban_desc:
+  zh: 列出禁封用户/禁封用户/解封用户
+  en: list banned user/ban user/unban user
+  jp: 禁止されたユーザーをリスト表示/ユーザーを禁止/ユーザーの禁止を解除する
+
+command_ban_user_status:
+  zh: |-
+    用户名称：[{}](tg://user?id={})
+    用户状态：{}
+  en: |-
+    user name: [{}](tg://user?id={})
+    user status: {}
+  jp: |-
+    ユーザー名：[{}](tg://user?id={})
+    ユーザーの状態：{}
+
+command_ban_user_setting_error:
+  zh: 只能管理普通用户，请重新设置
+  en: can only manage normal user, please reinput
+  jp: 通常のユーザーのみ管理できます。再入力してください。
+
+command_ban_banned_text:
+  zh: |-
+    当前共 {} 位禁封用户，点击按钮立即解封
+    当前位于 {} 页 / 共 {} 页
+  en: |-
+    {} banned users, click the button to unban
+    current page: {} / total page: {}
+  jp: |-
+    現在{}人が禁止されています。ボタンをクリックして禁止を解除します。
+    現在のページ：{} / 合計ページ：{}
+
+command_ban_banned_zero_text:
+  zh: 当前没有被禁封的用户
+  en: no banned user
+  jp: 現在禁止されているユーザーはいません
+
+command_feedback_desc:
+  zh: 反馈
+  en: feedback
+  jp: フィードバック
+
+command_feedback_null_error:
+  zh: 反馈内容不能为空，请重新输入
+  en: feedback content can not be empty, please reinput
+  jp: フィードバック内容は空にできません。再入力してください
+
+command_feedback_suffix:
+  zh: |-
+
+    来自 [{}](tg://user?id={}) 的反馈
+  en: |-
+
+    feedback from [{}](tg://user?id={})
+  jp: |-
+
+    [{}](tg://user?id={})からのフィードバック
+
+command_feedback_text:
+  zh: 已收到您的反馈，感谢您的支持！
+  en: your feedback has been received, thank you for your support!
+  jp: フィードバックを受け取りました。ありがとうございます！
+
+is_push_anonymous:
+  zh: 是否匿名投稿
+  en: is push anonymous
+  jp: 匿名投稿するかどうか
+
+anonymous_not_allowed:
+  zh: 不允许匿名投稿转发的消息
+  en: anonymous not allowed for forwarded message
+  jp: 転送されたメッセージは匿名投稿できません
+
+to_approve_success:
+  zh: 推送成功，请耐心等待审核
+  en: push success, please wait for approve
+  jp: 投稿成功。審査をお待ちください。
+
+enabled:
+  zh: 已开启
+  en: enabled
+  jp: 開いている
+
+disabled:
+  zh: 已关闭
+  en: disabled
+  jp: 閉じている
+
+pass:
+  zh: 通过
+  en: pass
+  jp: 通過
+
+reject:
+  zh: 拒绝
+  en: reject
+  jp: 拒否
+
+approve_rejected:
+  zh: 投稿被拒绝
+  en: submit rejected
+  jp: 投稿が拒否されました
+
+approve_succeeded:
+  zh: 投稿成功
+  en: submit success
+  jp: 投稿成功
+
+approve_rejected_log:
+  zh: 投稿被拒绝，审稿人：[{}](tg://user?id={})
+  en: rejected by [{}](tg://user?id={})
+  jp: 投稿が拒否されました。審査員：[{}](tg://user?id={})
+
+approve_succeeded_log:
+  zh: 投稿成功，审稿人：[{}](tg://user?id={})
+  en: passed by [{}](tg://user?id={})
+  jp: 投稿成功。審査員：[{}](tg://user?id={})
+
+unknown_command:
+  zh: 未知命令
+  en: unknown command
+  jp: 未知のコマンド
+
+submission_via_anonymous:
+  zh: 投稿 via **匿名**
+  en: SUBMISSION via **ANONYMOUS**
+  jp: 投稿 via **匿名**
+
+submission_via_user:
+  zh: 投稿 via [{}](tg://user?id={})
+  en: SUBMISSION via [{}](tg://user?id={})
+  jp: 投稿 via [{}](tg://user?id={})
+
+unknown_error:
+  zh: 未知错误
+  en: unknown error
+  jp: 未知のエラー
+
+user_banned:
+  zh: 您已被封禁
+  en: you have been banned
+  jp: あなたは禁止されています
+
+user_unbanned:
+  zh: 您已被解封
+  en: you have been unbanned
+  jp: あなたは解禁されました
+
+no_more_data:
+  zh: 没有更多数据了
+  en: no more data
+  jp: もうデータはありません
+
+previous_page:
+  zh: 上一页
+  en: previous page
+  jp: 前のページ
+
+next_page:
+  zh: 下一页
+  en: next page
+  jp: 次のページ
+
+enable_debug_mode:
+  zh: 开启DEBUG模式
+  en: enable debug mode
+  jp: DEBUGモードを有効にする
+
+disable_debug_mode:
+  zh: 关闭DEBUG模式
+  en: disable debug mode
+  jp: DEBUGモードを無効にする
+
+enable_approve_mode:
+  zh: 开启审核模式
+  en: enable approve mode
+  jp: 審査モードを有効にする
+
+disable_approve_mode:
+  zh: 关闭审核模式
+  en: disable approve mode
+  jp: 審査モードを無効にする
+
+key_yes:
+  zh: 是
+  en: "yes"
+  jp: はい
+
+key_no:
+  zh: 否
+  en: "no"
+  jp: いいえ
+
+ban:
+  zh: 封禁
+  en: ban
+  jp: 禁止
+
+normal:
+  zh: 正常
+  en: normal
+  jp: 正常
+
+banned:
+  zh: 已封禁
+  en: banned
+  jp: 禁止されている
+
+unban:
+  zh: 解封
+  en: unban
+  jp: 解禁
+
+cancel:
+  zh: 取消
+  en: cancel
+  jp: キャンセル
+
+invalid_opration:
+  zh: 操作失败，请输入help命令查看帮助
+  en: invalid operation, please input help command to get help
+  jp: 操作に失敗しました。ヘルプコマンドを入力してヘルプを表示してください
+
+cancel_success:
+  zh: 取消成功
+  en: cancel success
+  jp: キャンセル成功
+
+setting_success:
+  zh: 设置成功
+  en: setting success
+  jp: 設定成功

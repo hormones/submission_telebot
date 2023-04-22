@@ -1,0 +1,7 @@
+cryptg==0.4.0
+Pillow==9.5.0
+pyaes==1.6.1
+pyasn1==0.5.0
+PyYAML==6.0
+rsa==4.9
+Telethon==1.28.5

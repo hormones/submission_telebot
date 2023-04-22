@@ -1,0 +1,3 @@
+
+class CommandError(ValueError):
+    pass

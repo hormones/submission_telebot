@@ -1,0 +1,102 @@
+# zh: 请认真阅读以下内容，然后按照提示配置
+# en: Please read the following content carefully, and then configure according to the prompt
+# jp: 次の内容をよく読んでから、プロンプトに従って構成してください
+
+# zh: 是否开启debug模式，开启后会输出更加详细的日志，方便调试
+# en: whether to open debug mode, open it will output more detailed logs, convenient for debugging
+# jp: デバッグモードを有効にするかどうか。有効にするとより詳細なログが出力され、デバッグが簡単になります
+debug: False # True/False
+
+# zh: 是否开启审核模式，不开启时，用户发送的消息无需审核直接转发到发布频道，开启后，用户发送的消息会被转发到审核频道，审核人员审核通过后，消息才会被转发到发布频道
+# en: whether to open approve mode, when not open, the message sent by the user will be forwarded to the publish channel directly without approval, when open, the message sent by the user will be forwarded to the approve channel, and the message will be forwarded to the publish channel only after the approver approves it
+# jp: 承認モードを有効にするかどうか。有効にしない場合、ユーザーが送信したメッセージは承認なしで公開チャンネルに転送されます。 有効にすると、ユーザーが送信したメッセージは承認チャンネルに転送され、承認者が承認した後にのみ公開チャンネルに転送されます
+approve: True # True/False
+
+# zh: 你可以给发布频道链接一个群组，这样用户在发布频道中评论时，评论会被转发到群组中，方便互动
+# en: you can link a group to the publish channel, so that users can comment in the publish channel, and the comment will be forwarded to the group for better interaction
+# jp: 公開チャンネルにグループをリンクすることができます。 これにより、ユーザーは公開チャンネルでコメントでき、コメントはグループに転送され、より良い相互作用が可能になります
+show_group: True # True/False
+
+# todo...approve_outtime and timeout_strategy
+# approve_outtime: 1440 # unit: mimutes, default 1440 for one day, -1 for never timeout
+# timeout_strategy: 1 # 1/0, auto pass or reject after timeout
+
+###### zh: 以上设置可以在服务启动后，在bot的私聊窗口输入 /setting 命令来重新配置 ######
+###### en: The above settings can be reset by entering the /setting command in the private chat window of the bot after the service is started ######
+###### jp: 上記の設定は、サービスが開始された後、botのプライベートチャットウィンドウで /setting コマンドを入力することで再設定できます ######
+
+# zh: 是否将bot标记在发布频道的消息中
+# en: whether to mark the bot in the message in the publish channel
+# jp: botを公開チャンネルのメッセージにマークするかどうか
+show_bot: True # True/False
+
+# zh: 是否将发布频道标记在发布频道的消息中
+# en: whether to mark the publish channel in the message in the publish channel
+# jp: 公開チャンネルを公開チャンネルのメッセージにマークするかどうか
+show_channel: True # True/False
+
+# zh: 你可以在这里设置bot的api_id和api_hash，你可以在 https://my.telegram.org/apps 这里申请
+#     关于bot_token，你可以在 @BotFather 这个机器人中申请
+# en: you can set the api_id and api_hash of the bot here, you can apply for it at https://my.telegram.org/apps
+#     about bot_token, you can apply for it in the @BotFather bot
+# jp: ここでbotのapi_idとapi_hashを設定できます。 これは https://my.telegram.org/apps で申請できます
+#     bot_tokenについては、@BotFather botで申請できます
+api_id: 11111111111111111111
+api_hash: 11111111111111111111
+bot_token: 11111111111111111111
+
+# zh: 特别提醒：你可以使用 @userinfobot 这个机器人来获取用户ID、频道ID、群组ID
+# en: SPECIAL NOTE: you can use the @userinfobot bot to get user ID, channel ID, group ID
+# jp: 特別に注意してください：ユーザーID、チャンネルID、グループIDを取得するには、@userinfobot botを使用できます
+
+# zh: 你可以在这里设置bot管理员，管理员可以使用bot的所有命令，而普通用户只能使用部分命令，你可以在服务启动后，在bot的私聊窗口输入 /help 命令来学习如何使用bot
+#     你可以配置为用户ID、用户名、@用户名，例如：[5664415444, "username", "@username"]，一定不要使用引号包裹用户ID，否则会被当成电话号码，导致无法正确识别
+#     多个管理员请使用英文逗号分隔
+# en: you can set the bot administrators here, administrators can use all commands of the bot, and ordinary users can only use some commands, you can learn how to use the bot by entering the /help command in the private chat window of the bot after the service is started
+#     you can configure it as user ID, username, @username, for example: [5664415444, "username", "@username"], do not use quotes to wrap the user ID, otherwise it will be treated as a phone number, resulting in incorrect recognition
+#     please use English commas to separate multiple admins
+# jp: ここでbot管理者を設定できます。 管理者はbotのすべてのコマンドを使用できますが、一般ユーザーは一部のコマンドのみを使用できます。 サービスが開始された後、botのプライベートチャットウィンドウで /help コマンドを入力することでbotの使用方法を学ぶことができます
+#     ユーザーID、ユーザー名、@ユーザー名のいずれかで構成できます。 たとえば：[5664415444、"username"、"@username"]、ユーザーIDを引用符で囲まないでください。 そうしないと、電話番号として認識され、正しく認識されなくなります
+#     複数の管理者を設定するには、英語のカンマを使用してください
+super_admins: [11111111111111111111]
+
+# zh: 管理员使用bot时，会显示所有的可用命令，而针对普通用户，你可以在这里设置要显示的命令
+# en: when the admins uses the bot, all available commands will be displayed, and for ordinary users, you can set the commands to be displayed here
+# jp: 管理者がbotを使用すると、すべての使用可能なコマンドが表示されます。 一般ユーザーの場合は、ここで表示するコマンドを設定できます
+user_commands: ["help", "lang", "feedback"]
+
+# zh: 审核频道，用户推送的投稿会被转发到这个频道，等待审核
+#     NOTE 1：频道内的所有成员都可以审核投稿，因此频道内的所有成员都是审稿员，请务必将此频道设置为私有频道
+#     NOTE 2：bot必须是频道的管理员，且具有必要的权限，否则无法转发投稿和记录审核信息
+# en: approve channel, the submission will be forwarded to this channel for approve
+#     NOTE 1：all members in the channel can approve the submission, so all members in the channel are reviewers, please be sure to set this channel as a private channel
+#     NOTE 2：bot must be an admin in the channel with necessary permissions, otherwise it cannot forward the submission and record the approve result
+# jp: 审査チャンネル、ユーザーが投稿した投稿は、このチャンネルに転送され、承認待ちになります
+#     NOTE 1：チャンネル内のすべてのメンバーが投稿を承認できるため、チャンネル内のすべてのメンバーはレビュアーです。 このチャンネルをプライベートチャンネルに設定してください
+#     NOTE 2：botは、必要な権限を持つチャンネルの管理者である必要があります。 そうしないと、投稿を転送したり、承認結果を記録できません
+approve_channel: 11111111111111111111
+
+
+# zh: 审核群组，如果需要在审核频道中使用/reply命令回复投稿用户，则必须设置该群组并链接到审核频道
+#     NOTE 1：该群组必须是私有群组，并链接到审核频道，群组内的任何人都可以使用/reply命令回复投稿用户
+#     NOTE 2：bot必须是群组的管理员，且具有必要的权限，否则无法转发回复信息给用户
+# en: approve group, discussion linked to the approve channel
+#     NOTE 1：the group must be a private group and linked to the approve channel, anyone in the group can use the /reply command to reply to user
+#     NOTE 2：bot must be an admin in the group with necessary permissions, otherwise it cannot forward the reply to the user
+# jp: 审査グループ、承認チャンネルにリンクされたディスカッション
+#     NOTE 1：グループはプライベートグループでなければならず、承認チャンネルにリンクされている必要があります。 グループ内の誰でも/replyコマンドを使用して投稿ユーザーに返信できます
+#     NOTE 2：botは、グループの管理者である必要があり、必要な権限を持っている必要があります。 そうしないと、ユーザーに返信を転送できません
+approve_group: 11111111111111111111
+
+# zh: 投稿频道，投稿审核通过后，消息会被转发到这个频道，用于最终展示
+#     NOTE 1：bot必须是频道的管理员，且具有必要的权限，否则无法转发投稿
+#     NOTE 2：你可以将某个群组链接到频道，频道中的用户可以评论投稿以进行更好的讨论，但这不是必需的，这取决于你
+# en: submission channel, the submission will be forwarded to this channel for final display
+#     NOTE 1：bot must be an admin in the channel with necessary permissions, otherwise it cannot forward the submission
+#     NOTE 2：you can link a group to the channel, and users in the channel can comment on the submission to have a better discussion, but this is not required, it depends on you
+submission_channel: 11111111111111111111
+
+# zh: 最后的提醒：bot必须是以上频道和群组的管理员，并具有必要的权限，否则无法正常工作
+# en: LAST NOTE: BOT MUST BE AN ADMIN IN THE ABOVE CHANNELS AND GROUPS WITH NECESSARY PERMISSIONS, OTHERWISE IT WILL NOT WORK PROPERLY
+# jp: 最後の注意：botは、上記のチャンネルとグループの管理者であり、必要な権限を持っている必要があります。 そうしないと、正常に機能しません
+
