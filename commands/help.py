@@ -1,9 +1,9 @@
 from telethon import events
 from telethon.tl.types import BotCommandScopePeer
-from base import util
 
 import config
 import db
+import wrapper
 from base.types import Chat
 from config import client
 from i18n import DEFAULT_LANG, i18n
@@ -44,29 +44,22 @@ async def init():
     command useage: /start
     '''
     @client.on(events.NewMessage(pattern='/help( .*)?', incoming=True))
-    async def command_help_handler(event):
+    @wrapper.event_wrapper('help')
+    async def command_help_handler(event, is_admin):
         '''
         command useage: /help [command_name]
         '''
-        util.set_asyncio_params(event)
-        allowed, is_admin = await __common__.chat_check(event, 'help')
-        if not allowed:
-            return
         args = (event.pattern_match.group(1) or '').strip()
         text = _get_gelp_text(event, is_admin, args)
 
         await event.respond(text)
 
     @client.on(events.NewMessage(pattern='/start( .*)?', incoming=True))
-    async def command_start_handler(event):
+    @wrapper.event_wrapper('help') # special check by help command for /start
+    async def command_start_handler(event, is_admin):
         '''
         command useage: /start
         '''
-        util.set_asyncio_params(event)
-        # special check by help command for /start
-        allowed, is_admin = await __common__.chat_check(event, 'help')
-        if not allowed:
-            return
         # args = (event.pattern_match.group(1) or '').strip()
 
         # reset peer commands if admin or lang code is not default

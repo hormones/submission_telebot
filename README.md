@@ -11,8 +11,11 @@
 - [x] Anonymous not allowed for forwarded message
 - [x] User can feedback with `/feedback` command
 
-- [ ] Submission limit, like word limit, image limit and so on
+## TODO
 - [ ] Submission statistics
+- [ ] Submission limit, like word limit, image limit and so on
+- [ ] comments in the submission through BOT (very useful when anonymous)
+
 
 ## Q&A
 1. What are the roles?
@@ -20,7 +23,7 @@
     Approver: approve submission
     User: submission with BOT
 1. How to add admin?
-    Before server start, configure in `config.yml` in `super_admin` property, multiple administrators are separated by commas `,`
+    Before server start, configure in `config.yml` by property `super_admins`, multiple admins are separated by commas `,`
 1. How to add approver?
     Invite approver to join approval channel, all users who subscribe to the approval channel can approve submission
 
@@ -67,7 +70,7 @@ MIT
 [@submission_telebot](https://t.me/submission_telebot)
 
 ## Current problems/optimization points
-- [ ] After the approval is completed, the approved log is sent as reply to the approval channel instead of being placed in the comments
+- [ ] When the desktop version submits multiple pictures in one message, if you choose not to compress the picture, it will be sent by Telegram in turn, resulting in the submission being split into multiple messages (there is no problem with compressed pictures, and there is no good solution for the time being)
 
 ## FAQ
 1. If server start failed, please check log file `submission_telebot.log` first, if you have any question, please submit issue

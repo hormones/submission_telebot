@@ -1,9 +1,9 @@
-import logging
-import os
+import asyncio
 import base64
 import json
+import logging
+import os
 from typing import TypeVar
-import asyncio
 
 from base.types import MyJSONEncoder, Submission
 
@@ -35,7 +35,12 @@ def submission_loads(data: str) -> Submission:
     load submission from string
     '''
     id, sender_id, message_id, offset, anonymous = data.split('|')
-    return Submission(id=int(id), sender_id=int(sender_id), message_id=int(message_id), offset=int(offset), anonymous=int(anonymous))
+    return Submission(
+        id=int(id),
+        sender_id=int(sender_id),
+        message_id=int(message_id),
+        offset=int(offset),
+        anonymous=int(anonymous))
 
 
 def parse_bool(value):
@@ -65,26 +70,12 @@ def get_config(dic: dict, key: str, default=None):
     return value
 
 
-def set_asyncio_params(event):
-    '''
-    set asyncio task event params
-    '''
-    task = asyncio.current_task()
-    task.chat_id = event.chat_id
-    logging.debug(f"[{task.get_name()}] set param for task: chat_id = {event.chat_id}")
-    # if hasattr(event, 'grouped_id') and event.grouped_id:
-    #     task.message_id = event.messages[0].id
-    # else:
-    #     task.message_id = event.id
-    # if hasattr(event, 'chat') and hasattr(event.chat, 'lang_code'):
-    #     task.lang_code = event.chat.lang_code.split('-')[0]
-
-
 def get_asyncio_params(key):
     '''
     get asyncio task event params
     '''
     task = asyncio.current_task()
-    value = getattr(task, key, None)
-    logging.debug(f"[{task.get_name()}] get param from task: {key} = {value}")
-    return value
+    if not hasattr(task, key):
+        logging.warn(f"[{task.get_name()}] get param from task: {key} = None")
+        return None
+    return getattr(task, key, None)

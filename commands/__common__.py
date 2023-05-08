@@ -2,7 +2,8 @@ import asyncio
 import logging
 
 from telethon.tl.functions.bots import SetBotCommandsRequest
-from telethon.tl.types import (BotCommand, BotCommandScopeDefault, BotCommandScopePeer)
+from telethon.tl.types import (BotCommand, BotCommandScopeDefault,
+                               BotCommandScopePeer)
 
 import config
 import db
@@ -50,29 +51,6 @@ def _get_bot_commands(command_keys, admin=False):
     return i18n_commands
 
 
-async def chat_check(event, key=None):
-    '''
-    check if chat is banned and command is allowed
-    '''
-    is_admin = event.chat_id in config.SUPER_ADMINS
-    if not key:
-        return True, is_admin
-
-    if db.chat_banned(event.chat_id):
-        await event.respond(i18n('$user_banned$'))
-        return False, False
-
-    if is_admin:
-        if key not in ALL_COMMANDS:
-            await event.respond(i18n('$unknown_command$'))
-            return False, is_admin
-    elif key not in config.USER_COMMAND_KEYS:
-        await event.respond(i18n('$unknown_command$'))
-        return False, is_admin
-
-    return True, is_admin
-
-
 async def register_commands(admin, scope, lang_code):
     i18n_commands = I18N_ADMIN_COMMANDS[lang_code] if admin else I18N_USER_COMMANDS[lang_code]
     # await client(ResetBotCommandsRequest(scope=scope, lang_code=''))
@@ -103,7 +81,7 @@ async def init():
     # register user`s default commands by lang_code
     await register_commands(False, BotCommandScopeDefault(), DEFAULT_LANG)
     await _register_reply_commands()
-    # oh my god, if you register the chats commands too fast, 
+    # oh my god, if you register the chats commands too fast,
     # it will not work sometimes because you just registered default commands
     await asyncio.sleep(2)
     # register admin`s commands and chat`s commands by lang_code

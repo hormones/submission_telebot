@@ -1,12 +1,11 @@
-import asyncio
 import logging
 import re
-import commands
 
 from telethon import Button, events
 
 import config
 import db
+import wrapper
 from base import util
 from base.types import Submission
 from config import client
@@ -26,9 +25,8 @@ async def _send_message(entity, message=None, file=None, buttons=[]):
         return message.id
 
 
-async def _push_handler(event):
-    allowed, is_admin = await commands.chat_check(event)
-    if not allowed or is_admin:
+async def _push_handler(event, is_admin):
+    if is_admin:
         return
     message_id = None
     offset = 1
@@ -52,27 +50,24 @@ async def _push_handler(event):
 
 def init():
     @client.on(events.NewMessage(pattern=r'^(?!/)', func=lambda e: e.is_private and not e.grouped_id))
-    async def message_handler(event):
-        util.set_asyncio_params(event)
+    @wrapper.event_wrapper()
+    async def message_handler(event, is_admin):
         logging.info(f'message_handler: new submission from [{event.sender.first_name}]({event.sender_id}): {event.id}')
-        await _push_handler(event)
+        await _push_handler(event, is_admin)
 
     # muitiple media submission, photos or videos
     @client.on(events.Album(func=lambda e: e.is_private))
-    async def album_handler(event):
-        util.set_asyncio_params(event)
-        logging.info(f'album_handler: new submission from [{event.sender.first_name}]({event.sender_id}): {event.messages[0].id}')
-        await _push_handler(event)
+    @wrapper.event_wrapper()
+    async def album_handler(event, is_admin):
+        logging.info(
+            f'album_handler: new submission from [{event.sender.first_name}]({event.sender_id}): {event.messages[0].id}')
+        await _push_handler(event, is_admin)
 
     @client.on(events.CallbackQuery(data=re.compile(b'push:')))
-    async def push_handler_callback_query(event: events.CallbackQuery.Event):
-        util.set_asyncio_params(event)
+    @wrapper.event_wrapper()
+    async def push_handler_callback_query(event: events.CallbackQuery.Event, is_admin):
         action, key, data = event.data.decode().split(':')
         logging.debug(f"push button data ---> key: {key}, data: {data}")
-
-        allowed, is_admin = await commands.chat_check(event)
-        if not allowed:
-            return        
 
         submission = util.submission_loads(data)
 
@@ -113,20 +108,17 @@ def init():
         await event.edit(i18n('$to_approve_success$'), buttons=None)
 
     @client.on(events.CallbackQuery(data=re.compile(b'approve:')))
-    async def approve_handler_callback_query(event: events.CallbackQuery.Event):
-        util.set_asyncio_params(event)
+    @wrapper.event_wrapper()
+    async def approve_handler_callback_query(event: events.CallbackQuery.Event, is_admin):
         action, key, data = event.data.decode().split(':')
         logging.debug(f"approve button data ---> key: {key}, data: {data}")
-
-        allowed, is_admin = await commands.chat_check(event)
-        if not allowed:
-            return
 
         submission = db.submission_query(data.split('|')[0])
         submission.approver_id = event.sender_id
         submission.approval_result = int(key)
         logging.info(f"submission approved by {event.sender.first_name}: {util.dumps(submission)}")
-        db.submission_update_by_approval_id({"approval_id": submission.approval_id, "approver_id": event.sender_id, "approval_result": int(key)})
+        db.submission_update_by_approval_id({"approval_id": submission.approval_id,
+                                            "approver_id": event.sender_id, "approval_result": int(key)})
 
         sender = await client.get_entity(submission.sender_id)
 
@@ -141,13 +133,16 @@ def init():
             if config.SHOW_BOT:
                 text += i18n("\n$bot_link$").format(config.BOT.first_name, config.BOT.username)
             if config.SHOW_CHANNEL and config.SUBMISSION_CHANNEL.username:
-                text += i18n("\n$submission_channel_link$").format(config.SUBMISSION_CHANNEL.title, config.SUBMISSION_CHANNEL.username)
+                text += i18n("\n$submission_channel_link$").format(config.SUBMISSION_CHANNEL.title,
+                                                                   config.SUBMISSION_CHANNEL.username)
 
             if submission.offset == 1:
                 message = await client.get_messages(entity=sender, ids=submission.message_id)
                 # reformat message`s text
-                message.message, message.entities = await client._parse_message_text((message.raw_text + text), parse_mode='md')
-            else: # album
+                t_message, entities = await client._parse_message_text((message.raw_text + text), parse_mode='md')
+                message.message = t_message
+                message.entities = message.entities + entities
+            else:  # album
                 ids = [submission.message_id + i for i in range(submission.offset)]
                 file = await client.get_messages(entity=sender, ids=ids)
                 message = file[0].raw_text + text

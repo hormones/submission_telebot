@@ -1,14 +1,8 @@
 import logging
 
-from . import __common__, ban, setting, help, lang, reply, feedback
+from . import __common__, ban, feedback, help, lang, reply, setting
 
-
-async def chat_check(event, key=None):
-    '''
-    shortcut for __common__.chat_check, provide for other modules
-    check if chat is banned and command is allowed
-    '''
-    return await __common__.chat_check(event, key)
+ALL_COMMANDS = __common__.ALL_COMMANDS
 
 
 async def init():

@@ -1,12 +1,12 @@
-from math import ceil
 import re
+from math import ceil
 
 from telethon import Button, events
 from telethon.tl import types
-from base import util
 
 import config
 import db
+import wrapper
 from base.types import Chat
 from config import client
 from i18n import DEFAULT_LANG, i18n
@@ -79,16 +79,12 @@ async def _banned_page_handler(event, page_number=1, page_size=1):
 
 async def init():
     @client.on(events.NewMessage(pattern='/ban( .*)?', incoming=True))
-    async def command_ban_handler(event):
+    @wrapper.event_wrapper('ban')
+    async def command_ban_handler(event, is_admin):
         '''
         command useage: /ban [user_id|username|@username]
         for detailed usage, please enter command in bot: /help ban
         '''
-        util.set_asyncio_params(event)
-        allowed, is_admin = await __common__.chat_check(event, 'ban')
-        if not allowed:
-            return
-
         # args can be user_id, username, @username or empty
         args = (event.pattern_match.group(1) or '').strip()
         if args:
@@ -100,8 +96,8 @@ async def init():
         await event.respond(text, buttons=buttons)
 
     @client.on(events.CallbackQuery(data=re.compile(b'banned:')))
-    async def ban_handler_callback_query(event: events.CallbackQuery.Event):
-        util.set_asyncio_params(event)
+    @wrapper.event_wrapper()
+    async def ban_handler_callback_query(event: events.CallbackQuery.Event, is_admin):
         action, page_number, chat_id = event.data.decode().split(':')
         chat = db.chat_query(chat_id) or Chat(chat_id, 0, DEFAULT_LANG)
         # if chat.status == int(status):
@@ -126,15 +122,15 @@ async def init():
         #     pass
 
     @client.on(events.CallbackQuery(data=re.compile(b'banned_page:')))
-    async def ban_handler_callback_query(event: events.CallbackQuery.Event):
-        util.set_asyncio_params(event)
+    @wrapper.event_wrapper()
+    async def ban_handler_callback_query(event: events.CallbackQuery.Event, is_admin):
         action, page_number = event.data.decode().split(':')
         text, buttons = await _banned_page_handler(event, int(page_number))
         await event.edit(text, buttons=buttons)
 
     @client.on(events.CallbackQuery(data=re.compile(b'ban_user:')))
-    async def ban_handler_callback_query(event: events.CallbackQuery.Event):
-        util.set_asyncio_params(event)
+    @wrapper.event_wrapper()
+    async def ban_handler_callback_query(event: events.CallbackQuery.Event, is_admin):
         action, status, chat_id = event.data.decode().split(':')
         chat = db.chat_query(chat_id) or Chat(chat_id, 1, DEFAULT_LANG)
         # if chat.status == int(status):

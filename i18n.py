@@ -1,11 +1,9 @@
-import asyncio
 import os
 import re
 
 import yaml
-from base import util
 
-import db
+from base import util
 
 __fs = open(os.path.join("i18n.yml"), 'r', encoding="UTF-8")
 __data: dict = yaml.safe_load(__fs)
@@ -35,10 +33,10 @@ def i18n(key: str, lang_code: str = None):
 def get_lang(lang_code=None):
     if lang_code and lang_code in LANGS.keys():
         return lang_code
-    chat_id = util.get_asyncio_params('chat_id')
-    if chat_id:
-        lang_code = db.chat_code_query(chat_id)
-    return lang_code or DEFAULT_LANG
+    lang_code = util.get_asyncio_params('lang_code')
+    if lang_code and lang_code in LANGS.keys():
+        return lang_code
+    return DEFAULT_LANG
 
 
 def get_event_lang(event=None):

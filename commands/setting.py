@@ -4,6 +4,7 @@ import re
 from telethon import Button, events
 
 import config
+import wrapper
 from base import util
 from config import client
 from i18n import i18n
@@ -30,22 +31,19 @@ def _setting_handler(event):
 
 async def init():
     @client.on(events.NewMessage(pattern='/setting( .*)?', incoming=True))
-    async def command_setting_handler(event):
+    @wrapper.event_wrapper('setting')
+    async def command_setting_handler(event, is_admin):
         '''
         command useage: /setting
         you can use this command to change the bot's default settings
         '''
-        util.set_asyncio_params(event)
-        allowed, is_admin = await __common__.chat_check(event, 'setting')
-        if not allowed:
-            return
         # args = (event.pattern_match.group(1) or '').strip()
         text, buttons = _setting_handler(event)
         await event.respond(text, buttons=buttons)
 
     @client.on(events.CallbackQuery(data=re.compile(b'setting:')))
-    async def setting_handler_callback_query(event: events.CallbackQuery.Event):
-        util.set_asyncio_params(event)
+    @wrapper.event_wrapper()
+    async def setting_handler_callback_query(event: events.CallbackQuery.Event, is_admin):
         action, key, data = event.data.decode().split(':')
         if key == 'debug':
             config.DEBUG = not util.parse_bool(data)

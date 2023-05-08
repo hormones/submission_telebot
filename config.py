@@ -5,8 +5,8 @@ import typing
 import yaml
 from telethon import TelegramClient
 from telethon.tl import types
-from base import util
 
+from base import util
 from base.types import TelethonFilter
 
 __fs = open(os.path.join("config.yml"), 'r', encoding="UTF-8")
@@ -35,7 +35,9 @@ API_ID = util.get_config(__config, 'api_id')
 API_HASH = util.get_config(__config, 'api_hash')
 BOT_TOKEN = util.get_config(__config, 'bot_token')
 
-SUPER_ADMINS: list = util.get_config(__config, 'super_admins')
+__super_admins: list = util.get_config(__config, 'super_admins')
+# super admin id list
+SUPER_ADMINS: list = []
 
 APPROVE_CHANNEL: types.Channel = None
 APPROVE_GROUP: typing.Union[types.Chat, types.Dialog] = None
@@ -45,21 +47,26 @@ BOT = None
 client = TelegramClient('submission_telebot', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 
-async def _get_chat_entity(key, private: bool):
+async def _get_manager_entity(config_key, private: bool):
+    key = util.get_config(__config, config_key)
     entity = await client.get_entity(key)
     if not isinstance(entity, (types.Channel, types.Chat)):
-        raise TypeError(f'entity is not channel or group: {key}')
+        raise TypeError(f'entity is not channel or group: {config_key} = {key}')
     # check private for channel and group
     if private and entity.username:
-        raise ValueError(f'entity is not private: {key}')
+        raise ValueError(f'entity must be private: {config_key} = {key}')
     return entity
 
 
 async def init():
-    global APPROVE_CHANNEL, APPROVE_GROUP, SUBMISSION_CHANNEL, BOT
-    APPROVE_CHANNEL = await _get_chat_entity(util.get_config(__config, 'approve_channel'), True)
-    APPROVE_GROUP = await _get_chat_entity(util.get_config(__config, 'approve_group'), True)
-    SUBMISSION_CHANNEL = await _get_chat_entity(util.get_config(__config, 'submission_channel'), False)
+    global SUPER_ADMINS, APPROVE_CHANNEL, APPROVE_GROUP, SUBMISSION_CHANNEL, BOT
+    for key in __super_admins:
+        entity = await client.get_entity(key)
+        SUPER_ADMINS.append(entity.id)
+
+    APPROVE_CHANNEL = await _get_manager_entity('approve_channel', True)
+    APPROVE_GROUP = await _get_manager_entity('approve_group', True)
+    SUBMISSION_CHANNEL = await _get_manager_entity('submission_channel', False)
     BOT = await client.get_me()
 
     logging.info(f'=== config initialized ===')

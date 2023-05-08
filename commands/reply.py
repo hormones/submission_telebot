@@ -1,14 +1,15 @@
 import logging
 
 from telethon import events
-from base import util
 
 import config
 import db
+import wrapper
 from config import client
 from i18n import DEFAULT_LANG, i18n
 
 from . import __common__
+
 
 def _save_reply_id(message):
     if not message.forward or not message.forward.channel_post:
@@ -20,14 +21,11 @@ def _save_reply_id(message):
 
 async def init():
     @client.on(events.NewMessage(chats=config.APPROVE_GROUP, pattern='/reply( .*)?', func=lambda e: e.is_reply, incoming=True))
-    async def command_reply_handler(event):
+    @wrapper.event_wrapper('reply')
+    async def command_reply_handler(event, is_admin):
         '''
         command useage: /reply reply_text
         '''
-        util.set_asyncio_params(event)
-        # allowed, is_admin = await __common__.admin_check(event, 'reply')
-        # if not allowed:
-        #     return
         reply_text = (event.pattern_match.group(1) or '').strip()
         if not reply_text:
             return
@@ -44,21 +42,21 @@ async def init():
             await client.send_message(entity=submission.sender_id, message=reply_text, reply_to=submission.message_id)
 
     @client.on(events.NewMessage(chats=config.APPROVE_GROUP, func=lambda e: not e.is_reply and not e.grouped_id, incoming=True))
-    async def command_reply_handler(event):
+    @wrapper.event_wrapper()
+    async def command_reply_handler(event, is_admin):
         '''
         single message handler,
         save linked message id to db by approval channel
         useage: record approval result when approve or reject
         '''
-        util.set_asyncio_params(event)
         _save_reply_id(event.message)
 
     @client.on(events.Album(chats=config.APPROVE_GROUP, func=lambda e: not e.is_reply))
-    async def command_reply_album_handler(event):
+    @wrapper.event_wrapper()
+    async def command_reply_album_handler(event, is_admin):
         '''
         album handler,
         save linked message id to db by approval channel
         useage: record approval result when approve or reject
         '''
-        util.set_asyncio_params(event)
         _save_reply_id(event.messages[0])

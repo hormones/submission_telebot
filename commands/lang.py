@@ -1,16 +1,18 @@
 import logging
 import re
-from base import util
-import db
-import config
 
-from . import __common__
+from telethon import Button, events
+from telethon.tl.types import BotCommandScopePeer
+
+import config
+import db
+import wrapper
+from base import util
 from base.types import Chat
 from config import client
 from i18n import DEFAULT_LANG, LANGS, i18n
 
-from telethon import events, Button
-from telethon.tl.types import BotCommandScopePeer
+from . import __common__
 
 __buttons = []
 
@@ -21,20 +23,17 @@ async def init():
         __buttons.append(Button.inline(lang_desc, f'lang:{lang_code}'))
 
     @client.on(events.NewMessage(pattern='/lang( .*)?', incoming=True))
-    async def command_lang_handler(event):
+    @wrapper.event_wrapper('lang')
+    async def command_lang_handler(event, is_admin):
         '''
         command useage: /lang
         '''
-        util.set_asyncio_params(event)
-        allowed, is_admin = await __common__.chat_check(event, 'lang')
-        if not allowed:
-            return
         # args = (event.pattern_match.group(1) or '').strip()
         await event.respond(message=i18n('$command_lang_desc$'), buttons=__buttons)
 
     @client.on(events.CallbackQuery(data=re.compile(b'lang:')))
-    async def command_lang_handler_callback_query(event: events.CallbackQuery.Event):
-        util.set_asyncio_params(event)
+    @wrapper.event_wrapper()
+    async def command_lang_handler_callback_query(event: events.CallbackQuery.Event, is_admin):
         action, lang_code = event.data.decode().split(':')
         logging.debug(f"change lang --> chat_id: {event.chat_id} lang_code: {lang_code}")
 

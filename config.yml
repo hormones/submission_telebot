@@ -94,6 +94,9 @@ approve_group: 11111111111111111111
 # en: submission channel, the submission will be forwarded to this channel for final display
 #     NOTE 1：bot must be an admin in the channel with necessary permissions, otherwise it cannot forward the submission
 #     NOTE 2：you can link a group to the channel, and users in the channel can comment on the submission to have a better discussion, but this is not required, it depends on you
+# jp: 投稿チャンネル、投稿は最終的な表示のためにこのチャンネルに転送されます
+#     NOTE 1：botは、必要な権限を持つチャンネルの管理者である必要があります。 そうしないと、投稿を転送できません
+#     NOTE 2：グループをチャンネルにリンクすることができ、チャンネルのユーザーは投稿にコメントしてより良いディスカッションを行うことができますが、これは必須ではありません。 それはあなた次第です
 submission_channel: 11111111111111111111
 
 # zh: 最后的提醒：bot必须是以上频道和群组的管理员，并具有必要的权限，否则无法正常工作

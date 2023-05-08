@@ -1,7 +1,8 @@
 from telethon import events
-from base import util
 
 import config
+import wrapper
+from base import util
 from config import client
 from i18n import i18n
 
@@ -13,13 +14,12 @@ async def init():
     command useage: /feedback feedback_text
     '''
     @client.on(events.NewMessage(pattern='/feedback( .*)?', incoming=True))
-    async def command_feedback_handler(event):
+    @wrapper.event_wrapper('feedback')
+    async def command_feedback_handler(event, is_admin):
         '''
         command useage: /feedback feedback_text
         '''
-        util.set_asyncio_params(event)
-        allowed, is_admin = await __common__.chat_check(event, 'feedback')
-        if not allowed or is_admin:
+        if is_admin:
             return
         args = (event.pattern_match.group(1) or '').strip()
         if not args:
