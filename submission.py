@@ -11,7 +11,40 @@ from base.types import Submission
 from config import client
 from i18n import i18n
 
-# from telethon.tl.custom.message import Message
+
+async def _get_display_message(submission, additional_text=''):
+    file = None
+    message = None
+
+    # single message
+    if submission.offset == 1:
+        message = await client.get_messages(entity=submission.sender_id, ids=submission.message_id)
+        if additional_text:
+            entities = message.entities or []
+            a_message, a_entities = await client._parse_message_text((message.raw_text + additional_text), parse_mode='md')
+            message.message = a_message
+            message.entities = entities + a_entities
+    # album
+    else:
+        ids = [submission.message_id + i for i in range(submission.offset)]
+        file = await client.get_messages(entity=submission.sender_id, ids=ids)
+        message = file[0].raw_text + additional_text
+
+    return message, file
+
+
+def _get_additional_text(submission, sender):
+    additional_text = i18n("\n\n$submission_via_anonymous$")
+    if submission.anonymous == 0:
+        additional_text = i18n("\n\n$submission_via_user$").format(sender.first_name, submission.sender_id)
+
+    if config.SHOW_BOT:
+        additional_text += i18n("\n$bot_link$").format(config.BOT.first_name, config.BOT.username)
+
+    if config.SHOW_CHANNEL and config.SUBMISSION_CHANNEL.username:
+        additional_text += i18n("\n$submission_channel_link$").format(config.SUBMISSION_CHANNEL.title,
+                                                                      config.SUBMISSION_CHANNEL.username)
+    return additional_text
 
 
 async def _send_message(entity, message=None, file=None, buttons=[]):
@@ -83,29 +116,26 @@ def init():
                 return
 
         entity = config.SUBMISSION_CHANNEL
-        message = None
         buttons = None
-        file = None
 
+        additional_text = ''
         if config.APPROVE:
             entity = config.APPROVE_CHANNEL
             buttons = [
                 [Button.inline(i18n('$pass$'), f"approve:1:{submission.getParam}")],
                 [Button.inline(i18n('$reject$'), f"approve:0:{submission.getParam}")]
             ]
-
-        # single message
-        if submission.offset == 1:
-            message = await client.get_messages(entity=submission.sender_id, ids=submission.message_id)
-        # album
         else:
-            ids = [submission.message_id + i for i in range(submission.offset)]
-            file = await client.get_messages(entity=submission.sender_id, ids=ids)
-            message = file[0].raw_text
+            additional_text = _get_additional_text(submission, event.sender)
+
+        message, file = await _get_display_message(submission, additional_text)
+
         submission.approval_id = await _send_message(entity, message, file, buttons)
 
         db.submission_update(submission)
-        await event.edit(i18n('$to_approve_success$'), buttons=None)
+
+        reply_text = '$to_approve_success$' if config.APPROVE else '$approve_succeeded$'
+        await event.edit(i18n(reply_text), buttons=None)
 
     @client.on(events.CallbackQuery(data=re.compile(b'approve:')))
     @wrapper.event_wrapper()
@@ -124,34 +154,17 @@ def init():
 
         # approval passed, forward to submission channel
         if submission.approval_result:
-            file = None
-            message = None
-
-            text = i18n("\n\n$submission_via_anonymous$")
-            if submission.anonymous == 0:
-                text = i18n("\n\n$submission_via_user$").format(sender.first_name, submission.sender_id)
-            if config.SHOW_BOT:
-                text += i18n("\n$bot_link$").format(config.BOT.first_name, config.BOT.username)
-            if config.SHOW_CHANNEL and config.SUBMISSION_CHANNEL.username:
-                text += i18n("\n$submission_channel_link$").format(config.SUBMISSION_CHANNEL.title,
-                                                                   config.SUBMISSION_CHANNEL.username)
-
-            if submission.offset == 1:
-                message = await client.get_messages(entity=sender, ids=submission.message_id)
-                # reformat message`s text
-                t_message, entities = await client._parse_message_text((message.raw_text + text), parse_mode='md')
-                message.message = t_message
-                message.entities = message.entities + entities
-            else:  # album
-                ids = [submission.message_id + i for i in range(submission.offset)]
-                file = await client.get_messages(entity=sender, ids=ids)
-                message = file[0].raw_text + text
+            additional_text = _get_additional_text(submission, sender)
+            message, file = await _get_display_message(submission, additional_text)
             await _send_message(entity=config.SUBMISSION_CHANNEL, message=message, file=file, buttons=[])
 
         # send approval result to user
-        user_lang_code = db.chat_code_query(submission.sender_id)
-        reply_text = '$approve_succeeded$' if submission.approval_result else '$approve_rejected$'
-        await client.send_message(entity=sender, message=i18n(reply_text, user_lang_code), reply_to=submission.message_id)
+        try:
+            user_lang_code = db.chat_code_query(submission.sender_id)
+            reply_text = '$approve_succeeded$' if submission.approval_result else '$approve_rejected$'
+            await client.send_message(entity=sender, message=i18n(reply_text, user_lang_code), reply_to=submission.message_id)
+        except Exception as e:
+            logging.exception("send approval result to user error: %s", e)
 
         # clear approval buttons
         await event.edit(buttons=None)

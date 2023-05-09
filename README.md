@@ -19,34 +19,42 @@
 
 ## Q&A
 1. What are the roles?
+
     Admin: BOT administrator, can view/modify some config, view/ban/unban user
+
     Approver: approve submission
+
     User: submission with BOT
-1. How to add admin?
+
+2. How to add admin?
     Before server start, configure in `config.yml` by property `super_admins`, multiple admins are separated by commas `,`
-1. How to add approver?
+3. How to add approver?
     Invite approver to join approval channel, all users who subscribe to the approval channel can approve submission
+4. How to set default language?
+    Configure in `i18n.yml` by property `langs`, put the default language in the first place
 
 ## Prepare
 1. Apply api_id and api_hash from https://my.telegram.org/apps
-1. Apply a bot token from [@botfather](https://t.me/botfather)
-1. Prepare a channel for approval, must be private channel, add bot to channel and grant admin permission
-1. Prepare a group for approval, must be private group, link to approval channel, add bot to group and grant admin permission
-1. Prepare a channel for show, add bot to channel and grant admin permission, submission will be forwarded to this channel when approved
-1. Get channel and group id from [@userinfobot](https://t.me/userinfobot)
+2. Apply a bot token from [@botfather](https://t.me/botfather)
+3. Prepare a channel for approval, must be private channel, add bot to channel and grant admin permission
+4. Prepare a group for approval, must be private group, link to approval channel, add bot to group and grant admin permission
+5. Prepare a channel for show, add bot to channel and grant admin permission, submission will be forwarded to this channel when approved
+6. Get channel and group id from [@userinfobot](https://t.me/userinfobot)
 
 ## Deploy
+
+The first time you run this BOT service, you need to perform steps 1, 2, and 3. After that, you can run directly step 3
+
 1. Run the following command on server (install git first)
 ```bash
-git clone xxxx/submission_telebot.git
+git clone https://github.com/hormones/submission_telebot
 cd submission_telebot
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-1. Modify file `config.py` or set environment variable, see `config.py` for more detail
-1. Run `nohup python main.py >/dev/null 2>&1 &` to start bot
-1. Use bot to check if it is running normally
+2. Modify file `config.py` or set environment variable, see `config.py` for more detail
+3. Run `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &` to start bot
 
 ## Commands
 

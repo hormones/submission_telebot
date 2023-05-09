@@ -18,34 +18,43 @@
 
 ## 说明
 1. 有哪几种角色？
+
     管理员：BOT管理员，可以查看/修改部分配置，查看/封禁/解封用户
+
     审核员：可以审核投稿
+
     普通用户：可以使用BOT投稿
-1. 如何添加管理员
+
+2. 如何添加管理员
     服务启动前，在`config.yml`中的`super_admins`属性中配置，多个管理员用英文逗号`,`分隔
-1. 如何添加审核员
+3. 如何添加审核员
     邀请审核员加入审核频道即可，订阅了审核频道的用户均可审核投稿
+4. 如何设置默认语言
+    在`i18n.yml`中的`langs`属性中配置，将默认语言放在第一位
 
 ## 准备
 1. 在 https://my.telegram.org/apps 这里申请api_id和api_hash
-1. 在 [@botfather](https://t.me/botfather) 处申请一个BOT的Token
-1. 准备一个审核频道，必须是私有频道，将机器人加入频道并赋予管理员权限
-1. 准备一个审核群组，必须是私有群组，并链接到审核频道，将机器人加入群组并赋予管理员权限
-1. 准备一个展示频道，将机器人加入频道并赋予管理员权限，审核通过的投稿将会被转发到此频道
-1. 通过 [@userinfobot](https://t.me/userinfobot) 获取以上频道和群组的ID
+2. 在 [@botfather](https://t.me/botfather) 处申请一个BOT的Token
+3. 准备一个审核频道，必须是私有频道，将机器人加入频道并赋予管理员权限
+4. 准备一个审核群组，必须是私有群组，并链接到审核频道，将机器人加入群组并赋予管理员权限
+5. 准备一个展示频道，将机器人加入频道并赋予管理员权限，审核通过的投稿将会被转发到此频道
+6. 通过 [@userinfobot](https://t.me/userinfobot) 获取以上频道和群组的ID
 
 ## 部署
+
+首次运行此BOT服务需要执行1、2、3步，后续运行直接执行第3步即可
+
 1. 在服务器上执行下列命令（请先安装git)
 ```bash
-git clone xxxx/submission_telebot.git
+git clone https://github.com/hormones/submission_telebot
 cd submission_telebot
 python3 -m venv venv
-source venv/bin/activate
+source ./venv/bin/activate
 pip install -r requirements.txt
 ```
-1. 修改 `config.yml` 文件（或者配置环境变量），认真阅读注释并填入正确的配置
-1. 运行 `nohup python main.py >/dev/null 2>&1 &` 启动服务
-1. 使用bot检查是否正常运行
+2. 修改 `config.yml` 文件（或者配置环境变量），认真阅读注释并填入正确的配置
+3. 运行 `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &` 启动服务
+
 
 ## 指令
 
