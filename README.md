@@ -14,7 +14,8 @@
 ## TODO
 - [ ] Submission statistics
 - [ ] Submission limit, like word limit, image limit and so on
-- [ ] comments in the submission through BOT (very useful when anonymous)
+- [ ] Comments in the submission through BOT (very useful when anonymous)
+- [ ] Docker support
 
 
 ## Q&A
@@ -45,7 +46,7 @@
 
 The first time you run this BOT service, you need to perform steps 1, 2, and 3. After that, you can run directly step 3
 
-1. Run the following command on server (install git first)
+1. Run the following command on server (install git first, only support python3 and python3 version >= 3.10.6)
 ```bash
 git clone https://github.com/hormones/submission_telebot
 cd submission_telebot

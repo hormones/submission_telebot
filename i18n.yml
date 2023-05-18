@@ -20,12 +20,12 @@ bot_link:
 
 approve_channel_link:
   zh: "审核：[{}](https://t.me/c/{}/999999999)"
-  en: "approval: [{}](https://t.me/c/{}/999999999)"
+  en: "APPROVAL: [{}](https://t.me/c/{}/999999999)"
   jp: "審査：[{}](https://t.me/c/{}/999999999)"
 
 submission_channel_link:
   zh: "频道：[{}](https://t.me/{})"
-  en: "channel: [{}](https://t.me/{})"
+  en: "CHANNEL: [{}](https://t.me/{})"
   jp: "チャンネル：[{}](https://t.me/{})"
 
 # submission_group_link:

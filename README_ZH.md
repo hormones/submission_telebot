@@ -15,6 +15,7 @@
 - [ ] 投稿内容限制，如限制字数、图片数量等
 - [ ] 投稿统计
 - [ ] 通过BOT在投稿评论中发言（匿名时十分有用）
+- [ ] 支持DOCKER部署
 
 ## 说明
 1. 有哪几种角色？
@@ -44,7 +45,7 @@
 
 首次运行此BOT服务需要执行1、2、3步，后续运行直接执行第3步即可
 
-1. 在服务器上执行下列命令（请先安装git)
+1. 在服务器上执行下列命令（请先安装git，该项目仅支持python3并且python3版本>=3.10.6）
 ```bash
 git clone https://github.com/hormones/submission_telebot
 cd submission_telebot
