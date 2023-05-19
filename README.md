@@ -51,8 +51,8 @@ The first time you run this BOT service, you need to perform steps 1, 2, and 3. 
 git clone https://github.com/hormones/submission_telebot
 cd submission_telebot
 python3 -m venv venv
-pip install -U pip setuptools
 source venv/bin/activate
+pip install -U pip setuptools
 pip install -r requirements.txt
 ```
 2. Modify file `config.py` or set environment variable, see `config.py` for more detail

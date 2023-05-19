@@ -50,8 +50,8 @@
 git clone https://github.com/hormones/submission_telebot
 cd submission_telebot
 python3 -m venv venv
-pip install -U pip setuptools
 source venv/bin/activate
+pip install -U pip setuptools
 pip install -r requirements.txt
 ```
 2. `config.yml`ファイルを変更します（または環境変数を設定します）。コメントを読んで正しい設定を入力してください。

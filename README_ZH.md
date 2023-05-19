@@ -49,9 +49,9 @@
 ```bash
 git clone https://github.com/hormones/submission_telebot
 cd submission_telebot
-pip install -U pip setuptools
 python3 -m venv venv
 source ./venv/bin/activate
+pip install -U pip setuptools
 pip install -r requirements.txt
 ```
 2. 修改 `config.yml` 文件（或者配置环境变量），认真阅读注释并填入正确的配置
