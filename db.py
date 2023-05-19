@@ -10,7 +10,7 @@ _conn: sqlite3.Connection = None
 
 def init():
     global _conn
-    _conn = sqlite3.connect('submission_telebot.db')
+    _conn = sqlite3.connect('appdata/submission_telebot.db')
 
     table_exists = _conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='chat';").fetchone()
     if table_exists is None:

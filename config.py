@@ -9,7 +9,7 @@ from telethon.tl import types
 from base import util
 from base.types import TelethonFilter
 
-__fs = open(os.path.join("config.yml"), 'r', encoding="UTF-8")
+__fs = open(os.path.join("appdata/config.yml"), 'r', encoding="UTF-8")
 __config: dict = yaml.safe_load(__fs)
 
 DEBUG: bool = util.get_config(__config, 'debug', False)
@@ -25,7 +25,7 @@ __logging_format = '%(asctime)s %(name)s %(process)d %(filename)s:%(lineno)s %(l
 __logging_level = logging.DEBUG if DEBUG else logging.INFO
 logging.basicConfig(format=__logging_format, level=__logging_level)
 LOGGING = logging.getLogger()
-LOGGING_FILE = logging.FileHandler('submission_telebot.log')
+LOGGING_FILE = logging.FileHandler('appdata/submission_telebot.log')
 LOGGING_FILE.setLevel(__logging_level)
 LOGGING_FILE.setFormatter(logging.Formatter(__logging_format))
 LOGGING_FILE.addFilter(TelethonFilter())
@@ -43,6 +43,9 @@ APPROVE_CHANNEL: types.Channel = None
 APPROVE_GROUP: typing.Union[types.Chat, types.Dialog] = None
 SUBMISSION_CHANNEL: types.Channel = None
 BOT = None
+
+logging.info(f'=== api_id: {API_ID} ===')
+logging.info(f'=== super_admins: {__super_admins} ===')
 
 client = TelegramClient('submission_telebot', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 

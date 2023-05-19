@@ -27,7 +27,7 @@
     普通用户：可以使用BOT投稿
 
 2. 如何添加管理员
-    服务启动前，在`config.yml`中的`super_admins`属性中配置，多个管理员用英文逗号`,`分隔
+    服务启动前，在`appdata/config.yml`中的`super_admins`属性中配置，多个管理员用英文逗号`,`分隔
 3. 如何添加审核员
     邀请审核员加入审核频道即可，订阅了审核频道的用户均可审核投稿
 4. 如何设置默认语言
@@ -54,7 +54,7 @@ source ./venv/bin/activate
 pip install -U pip setuptools
 pip install -r requirements.txt
 ```
-2. 修改 `config.yml` 文件（或者配置环境变量），认真阅读注释并填入正确的配置
+2. 修改 `appdata/config.yml` 文件（或者配置环境变量），认真阅读注释并填入正确的配置
 3. 运行 `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &` 启动服务
 
 
@@ -83,8 +83,8 @@ MIT
 - [ ] 桌面版本在一条消息中投稿多张图片时，如果选择不压缩图片，会被Telegram依次发送，导致投稿被切分成多条消息（压缩图片则没有这个问题，暂时没有好的解决方案）
 
 ## 其它
-1. 如果启动异常，请先查看日志文件 `submission_telebot.log`排查问题，如有问题请提交issue
-1. `config.yml` 文件中的配置均可以配置为系统环境变量，当存在对应配置的环境变量时，将会覆盖配置文件中的配置
+1. 如果启动异常，请先查看日志文件 `appdata/submission_telebot.log`排查问题，如有问题请提交issue
+1. `appdata/config.yml` 文件中的配置均可以配置为系统环境变量，当存在对应配置的环境变量时，将会覆盖配置文件中的配置
 1. 本项目中英语和日语翻译均来自[Github Copilot](https://github.com/features/copilot)插件翻译，如有不妥之处请提交issue
 1. 如果有定制化信息展示的需要，可以自行研究编辑 `i18n.yml` 文件中的多语言配置，以更加贴合项目主题
 1. 如有其它问题或建议，欢迎提交issue

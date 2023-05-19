@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  submission_telebot:
+    build:
+      context: .
+      args:
+        GIT_REPO: https://github.com/hormones/submission_telebot
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./appdata:/app/appdata
