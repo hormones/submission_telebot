@@ -27,10 +27,12 @@
     普通用户：可以使用BOT投稿
 
 2. 如何添加管理员
-    服务启动前，在`appdata/config.yml`中的`super_admins`属性中配置，多个管理员用英文逗号`,`分隔
+    服务启动前，在`config.yml`中的`super_admins`属性中配置，多个管理员用英文逗号`,`分隔
 3. 如何添加审核员
+
     邀请审核员加入审核频道即可，订阅了审核频道的用户均可审核投稿
 4. 如何设置默认语言
+
     在`i18n.yml`中的`langs`属性中配置，将默认语言放在第一位
 
 ## 准备
@@ -43,6 +45,25 @@
 
 ## 部署
 
+日志文件路径：`appdata/submission_telebot.log`
+
+数据库文件路径：`appdata/submission_telebot.db`
+
+### DOCKER部署（推荐）
+
+使用`docker`部署时，需要先安装`docker`和`docker-compose`
+
+1. 下载`Dockerfile`、`docker-compose.yml`、`config.yml`文件
+```bash
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/Dockerfile -O Dockerfile
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/docker-compose.yml -O docker-compose.yml
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config.yml -O config.yml
+```
+2. 修改 `config.yml` 文件（或者修改`docker-compose.yml`配置环境变量），请认真阅读注释并填入正确的配置
+3. 运行 `docker-compose up -d` 启动服务，第一次启动会拉取镜像、安装依赖，可能需要等待一段时间
+4. 运行 `docker logs -f --since=3m submission_telebot` 查看日志，或者运行 `tail -f appdata/submission_telebot.log` 查看日志
+
+### 拉取代码部署
 首次运行此BOT服务需要执行1、2、3步，后续运行直接执行第3步即可
 
 1. 在服务器上执行下列命令（请先安装git，python >= 3.7.3）
@@ -54,7 +75,7 @@ source ./venv/bin/activate
 pip install -U pip setuptools
 pip install -r requirements.txt
 ```
-2. 修改 `appdata/config.yml` 文件（或者配置环境变量），认真阅读注释并填入正确的配置
+2. 修改 `config.yml` 文件（或者配置环境变量），认真阅读注释并填入正确的配置
 3. 运行 `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &` 启动服务
 
 
@@ -84,7 +105,7 @@ MIT
 
 ## 其它
 1. 如果启动异常，请先查看日志文件 `appdata/submission_telebot.log`排查问题，如有问题请提交issue
-1. `appdata/config.yml` 文件中的配置均可以配置为系统环境变量，当存在对应配置的环境变量时，将会覆盖配置文件中的配置
+1. `config.yml` 文件中的配置均可以配置为系统环境变量，当存在对应配置的环境变量时，将会覆盖配置文件中的配置
 1. 本项目中英语和日语翻译均来自[Github Copilot](https://github.com/features/copilot)插件翻译，如有不妥之处请提交issue
 1. 如果有定制化信息展示的需要，可以自行研究编辑 `i18n.yml` 文件中的多语言配置，以更加贴合项目主题
 1. 如有其它问题或建议，欢迎提交issue

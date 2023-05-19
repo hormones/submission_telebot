@@ -2,11 +2,12 @@ version: '3'
 
 services:
   submission_telebot:
+    image: "hormones/submission_telebot"
+    container_name: "submission_telebot"
     build:
       context: .
-      args:
-        GIT_REPO: https://github.com/hormones/submission_telebot
     environment:
       - PYTHONUNBUFFERED=1
     volumes:
+      - ./config.yml:/app/config.yml
       - ./appdata:/app/appdata

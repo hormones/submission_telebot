@@ -9,7 +9,7 @@ from telethon.tl import types
 from base import util
 from base.types import TelethonFilter
 
-__fs = open(os.path.join("appdata/config.yml"), 'r', encoding="UTF-8")
+__fs = open(os.path.join("config.yml"), 'r', encoding="UTF-8")
 __config: dict = yaml.safe_load(__fs)
 
 DEBUG: bool = util.get_config(__config, 'debug', False)

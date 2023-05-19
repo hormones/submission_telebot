@@ -28,10 +28,13 @@
     User: submission with BOT
 
 2. How to add admin?
-    Before server start, configure in `appdata/config.yml` by property `super_admins`, multiple admins are separated by commas `,`
+
+    Before server start, configure in `config.yml` by property `super_admins`, multiple admins are separated by commas `,`
 3. How to add approver?
+
     Invite approver to join approval channel, all users who subscribe to the approval channel can approve submission
 4. How to set default language?
+
     Configure in `i18n.yml` by property `langs`, put the default language in the first place
 
 ## Prepare
@@ -44,6 +47,26 @@
 
 ## Deploy
 
+logfile path: `appdata/submission_telebot.log`
+
+database file path: `appdata/submission_telebot.db`
+
+### Docker Install (Recommended)
+
+When deploying with `docker`, you need to install `docker` and `docker-compose` first
+
+1. Download `Dockerfile`、`docker-compose.yml`、`config.yml` files
+```bash
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/Dockerfile -O Dockerfile
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/docker-compose.yml -O docker-compose.yml
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config.yml -O config.yml
+```
+2. Modify `config.yml` file (or modify `docker-compose.yml` to configure environment variables), please read the comments carefully and fill in the correct configuration
+3. Run `docker-compose up -d` to start the service. The first time you start it, you will pull the image and install the dependencies, which may take a while
+4. Run `docker logs -f --since=3m submission_telebot` to view the log, or run `tail -f appdata/submission_telebot.log` to view the log
+
+### Code Install
+
 The first time you run this BOT service, you need to perform steps 1, 2, and 3. After that, you can run directly step 3
 
 1. Run the following command on server (install git first, python >= 3.7.3)
@@ -55,7 +78,7 @@ source venv/bin/activate
 pip install -U pip setuptools
 pip install -r requirements.txt
 ```
-2. Modify file `appdata/config.yml` or set environment variable, see config file for more detail
+2. Modify file `config.yml` or set environment variable, see config file for more detail
 3. Run `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &` to start bot
 
 ## Commands
@@ -84,7 +107,7 @@ MIT
 
 ## FAQ
 1. If server start failed, please check log file `appdata/submission_telebot.log` first, if you have any question, please submit issue
-1. all config in `appdata/config.yml` can be set as environment variable, when there is a corresponding environment variable, it will overwrite the configuration in the configuration file
+1. all config in `config.yml` can be set as environment variable, when there is a corresponding environment variable, it will overwrite the configuration in the configuration file
 1. The English and Japanese translations in this project are translated by [Github Copilot](https://github.com/features/copilot) plugin, if there is any objection, please submit issue
 1. If you need to customize the information display, you can study and edit the multi-language configuration in the `i18n.yml` file to better fit the project theme
 1. If you have any other questions or suggestions, please submit issue

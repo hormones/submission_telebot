@@ -27,7 +27,7 @@
     一般ユーザー：BOTを使用して投稿できます。
 
 2. 管理者を追加するにはどうすればよいですか？
-    サービスを起動する前に、`appdata/config.yml`の`super_admins`属性に設定します。複数の管理者は英語のカンマ`,`で区切ります。
+    サービスを起動する前に、`config.yml`の`super_admins`属性に設定します。複数の管理者は英語のカンマ`,`で区切ります。
 3. 审査員を追加するにはどうすればよいですか？
     审査員をチャンネルに招待するだけです。チャンネルに招待されたユーザーはすべて承認者です。
 4. デフォルト言語を設定するには
@@ -43,6 +43,26 @@
 
 ## 部署
 
+ログファイルパス：`appdata/submission_telebot.log`
+
+データベースファイルパス：`appdata/submission_telebot.db`
+
+### DOCKER部署(推奨)
+
+`docker`を使用してサービスを起動するには、`docker`と`docker-compose`をインストールする必要があります。
+
+1. `Dockerfile`、`docker-compose.yml`、`config.yml`ファイルをダウンロードする
+```bash
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/Dockerfile -O Dockerfile
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/docker-compose.yml -O docker-compose.yml
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config.yml -O config.yml
+```
+2. `config.yml`ファイルを変更する（または`docker-compose.yml`ファイルの環境変数を変更する）。コメントをよく読んで、正しい設定を入力してください
+3. `docker-compose up -d`を実行してサービスを起動します。初回起動時にイメージを取得し、依存関係をインストールする必要があるため、しばらくお待ちください
+4. `docker logs -f --since=3m submission_telebot`を実行してログを表示するか、`tail -f appdata/submission_telebot.log`を実行してログを表示する
+
+### 手動部署
+
 このBOTサービスを初めて実行するには、1、2、3を実行する必要があります。後続の実行は3のみです。
 
 1. サーバーで次のコマンドを実行します（gitをインストールしてください，python >= 3.7.3）
@@ -54,7 +74,7 @@ source venv/bin/activate
 pip install -U pip setuptools
 pip install -r requirements.txt
 ```
-2. `appdata/config.yml`ファイルを変更します（または環境変数を設定します）。コメントを読んで正しい設定を入力してください。
+2. `config.yml`ファイルを変更します（または環境変数を設定します）。コメントを読んで正しい設定を入力してください。
 3. `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &`を実行してサービスを起動します。
 
 ## ユーザー
@@ -82,7 +102,7 @@ MIT
 - [ ] デスクトップバージョンでは、1つのメッセージに複数の画像を投稿すると、画像を圧縮しない場合、Telegramによって順番に送信され、投稿が複数のメッセージに分割されます（画像を圧縮すると、この問題は発生しません。現時点では、良い解決策はありません）
 
 ## その他
-1. `appdata/config.yml`ファイルの設定はすべてシステム環境変数に設定できます。対応する設定がある場合、設定ファイルの設定が上書きされます
+1. `config.yml`ファイルの設定はすべてシステム環境変数に設定できます。対応する設定がある場合、設定ファイルの設定が上書きされます
 1. デフォルトの設定では、ユーザーは`/feedback`コマンドを使用してフィードバックを送信できます。`user_command`を変更してユーザーが使用できるコマンドを追加または削除できます。
 1. 本プロジェクトの英語と日本語の翻訳は、[Github Copilot](https://github.com/features/copilot)プラグインの翻訳から来ています。問題がある場合は、issueを提出してください
 1. もしカスタマイズ情報表示の必要がある場合は、`i18n.yml`ファイルの多言語設定を編集して、よりプロジェクトテーマに合わせることができます 
