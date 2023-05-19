@@ -46,11 +46,12 @@
 
 The first time you run this BOT service, you need to perform steps 1, 2, and 3. After that, you can run directly step 3
 
-1. Run the following command on server (install git first, only support python3 and python3 version >= 3.10.6)
+1. Run the following command on server (install git first, python >= 3.7.3)
 ```bash
 git clone https://github.com/hormones/submission_telebot
 cd submission_telebot
 python3 -m venv venv
+pip install -U pip setuptools
 source venv/bin/activate
 pip install -r requirements.txt
 ```

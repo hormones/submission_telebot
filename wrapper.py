@@ -26,10 +26,13 @@ async def _event_prehandler(event, command=None):
     task = asyncio.current_task()
     task.chat_id = event.chat_id
     task.lang_code = lang_code
-    logging.debug(f"[{task.get_name()}] set param for task: chat_id = {event.chat_id}, lang_code = {lang_code}")
+    logging.debug(f"set param for task: chat_id = {event.chat_id}, lang_code = {lang_code}")
     # 2. check request chat is valid
     is_admin = event.chat_id in config.SUPER_ADMINS
-    if not command:
+    if command:
+        if command is 'reply':
+            return True, False
+    else:
         return True, is_admin
 
     if (is_admin and command not in commands.ALL_COMMANDS) or (not is_admin and command not in config.USER_COMMAND_KEYS):

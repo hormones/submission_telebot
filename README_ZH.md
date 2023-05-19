@@ -45,10 +45,11 @@
 
 首次运行此BOT服务需要执行1、2、3步，后续运行直接执行第3步即可
 
-1. 在服务器上执行下列命令（请先安装git，该项目仅支持python3并且python3版本>=3.10.6）
+1. 在服务器上执行下列命令（请先安装git，python >= 3.7.3）
 ```bash
 git clone https://github.com/hormones/submission_telebot
 cd submission_telebot
+pip install -U pip setuptools
 python3 -m venv venv
 source ./venv/bin/activate
 pip install -r requirements.txt

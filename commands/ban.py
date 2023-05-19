@@ -1,3 +1,4 @@
+import logging
 import re
 from math import ceil
 
@@ -32,8 +33,9 @@ async def _user_handler(event, args):
             text, buttons = _get_chat_status(event, entity, chat)
         else:
             text = i18n('$command_ban_user_setting_error$')
-    except:
+    except Exception as e:
         text = i18n('$invalid_opration$')
+        logging.exception("ban command execute error, cannot handle user with id: %s\n%s",args, e)
     return text, buttons
 
 

@@ -1,5 +1,6 @@
 import logging
 import sqlite3
+import typing
 
 from base import util
 from base.types import Chat, Submission
@@ -123,7 +124,7 @@ def submission_query_by_approval_id(approval_id) -> Submission:
     return Submission(*row) if row else None
 
 
-def submission_query_all() -> list[Submission]:
+def submission_query_all() -> typing.List[Submission]:
     rows = _query_all('submission')
     return [Submission(*row) for row in rows]
 
@@ -148,7 +149,7 @@ def chats_count_banned() -> int:
     return row[0]
 
 
-def chats_banned(page_number=1, page_size=10) -> list[Chat]:
+def chats_banned(page_number=1, page_size=10) -> typing.List[Chat]:
     data = []
     offset = (page_number - 1) * page_size
     logging.debug(f'query chats banned')
@@ -178,7 +179,7 @@ def chat_update(obj: Chat):
     _update('chat', obj.__dict__, 'chat_id')
 
 
-def chat_query_all() -> list[Chat]:
+def chat_query_all() -> typing.List[Chat]:
     rows = _query_all('chat')
     return [Chat(*row) for row in rows]
 

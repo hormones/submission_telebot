@@ -76,6 +76,6 @@ def get_asyncio_params(key):
     '''
     task = asyncio.current_task()
     if not hasattr(task, key):
-        logging.warn(f"[{task.get_name()}] get param from task: {key} = None")
+        logging.warn(f"get param from task: {key} = None")
         return None
     return getattr(task, key, None)
