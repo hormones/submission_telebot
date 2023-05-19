@@ -47,7 +47,7 @@ BOT = None
 logging.info(f'=== api_id: {API_ID} ===')
 logging.info(f'=== super_admins: {__super_admins} ===')
 
-client = TelegramClient('submission_telebot', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
+client = TelegramClient('./appdata/submission_telebot.session', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 
 async def _get_manager_entity(config_key, private: bool):

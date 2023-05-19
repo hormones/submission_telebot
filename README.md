@@ -10,12 +10,12 @@
 - [x] Admin can view/modify some config in bot
 - [x] Anonymous not allowed for forwarded message
 - [x] User can feedback with `/feedback` command
+- [x] Docker support
 
 ## TODO
 - [ ] Submission statistics
 - [ ] Submission limit, like word limit, image limit and so on
 - [ ] Comments in the submission through BOT (very useful when anonymous)
-- [ ] Docker support
 
 
 ## Q&A
@@ -30,9 +30,11 @@
 2. How to add admin?
 
     Before server start, configure in `config.yml` by property `super_admins`, multiple admins are separated by commas `,`
+
 3. How to add approver?
 
     Invite approver to join approval channel, all users who subscribe to the approval channel can approve submission
+
 4. How to set default language?
 
     Configure in `i18n.yml` by property `langs`, put the default language in the first place
