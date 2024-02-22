@@ -1,6 +1,7 @@
 import logging
 import os
 import typing
+import python_socks
 
 import yaml
 from telethon import TelegramClient
@@ -35,6 +36,14 @@ API_ID = util.get_config(__config, 'api_id')
 API_HASH = util.get_config(__config, 'api_hash')
 BOT_TOKEN = util.get_config(__config, 'bot_token')
 
+# proxy configs
+PROXY: bool = util.get_config(__config, 'proxy', False)
+PROXY_TYPE = util.get_config(__config, 'proxy_type', 'socks5')
+PROXY_ADDR = util.get_config(__config, 'proxy_addr', '127.0.0.1')
+PROXY_PORT = util.get_config(__config, 'proxy_port', 1080)
+PROXY_USERNAME = util.get_config(__config, 'proxy_username', '')
+PROXY_PASSWORD = util.get_config(__config, 'proxy_password', '')
+
 __super_admins: list = util.get_config(__config, 'super_admins')
 # super admin id list
 SUPER_ADMINS: list = []
@@ -46,8 +55,25 @@ BOT = None
 
 logging.info(f'=== api_id: {API_ID} ===')
 logging.info(f'=== super_admins: {__super_admins} ===')
+logging.info(f'=== proxy: {PROXY} ===')
+if (PROXY):
+    logging.info(f'=== proxy_type: {PROXY_TYPE} ===')
+    logging.info(f'=== proxy_addr: {PROXY_ADDR} ===')
+    logging.info(f'=== proxy_port: {PROXY_PORT} ===')
+    logging.info(f'=== proxy_username: {PROXY_USERNAME} ===')
+    logging.info(f'=== proxy_password: {PROXY_PASSWORD} ===')
 
-client = TelegramClient('./appdata/submission_telebot.session', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
+proxy = {
+    'proxy_type': util.find_enum_by_string(python_socks.ProxyType, PROXY_TYPE),
+    'addr': PROXY_ADDR,             # (mandatory) proxy IP address
+    'port': PROXY_PORT,             # (mandatory) proxy port number
+    'username': PROXY_USERNAME,     # (optional) username if the proxy requires auth
+    'password': PROXY_PASSWORD,     # (optional) password if the proxy requires auth
+    'rdns': True                    # (optional) whether to use remote or local resolve, default remote
+}
+
+client = TelegramClient('./appdata/submission_telebot.session', API_ID, API_HASH,
+                        proxy=proxy if PROXY else None).start(bot_token=BOT_TOKEN)
 
 
 async def _get_manager_entity(config_key, private: bool):

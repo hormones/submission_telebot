@@ -45,6 +45,31 @@ api_id: 11111111111111111111
 api_hash: 11111111111111111111
 bot_token: 11111111111111111111
 
+# zh: 是否启用代理
+# en: whether to enable proxy
+# jp: プロキシを有効にするかどうか
+proxy: False
+# zh: 代理类型，支持http、socks4、socks5
+# en: proxy type, support http, socks4, socks5
+# jp: プロキシタイプ、http、socks4、socks5
+proxy_type: socks5
+# zh: 代理地址
+# en: proxy address
+# jp: プロキシアドレス
+proxy_addr: 127.0.0.1
+# zh: 代理端口
+# en: proxy port
+# jp: プロキシポート
+proxy_port: 10808
+# zh: (可选) 代理用户名
+# en: (optional) username if the proxy requires auth
+# jp: (オプション) プロキシユーザー名
+proxy_username: ''
+# zh: (可选) 代理密码
+# en: (optional) password if the proxy requires auth
+# jp: (オプション) プロキシパスワード
+proxy_password: ''
+
 # zh: 特别提醒：你可以使用 @userinfobot 这个机器人来获取用户ID、频道ID、群组ID
 # en: SPECIAL NOTE: you can use the @userinfobot bot to get user ID, channel ID, group ID
 # jp: 特別に注意してください：ユーザーID、チャンネルID、グループIDを取得するには、@userinfobot botを使用できます
@@ -81,7 +106,7 @@ approve_channel: 11111111111111111111
 #     NOTE 1：该群组必须是私有群组，并链接到审核频道，群组内的任何人都可以使用/reply命令回复投稿用户
 #     NOTE 2：bot必须是群组的管理员，且具有必要的权限，否则无法转发回复信息给用户
 # en: approve group, discussion linked to the approve channel
-#     NOTE 1：the group must be a private group and linked to the approve channel, anyone in the group can use the /reply command to reply to user
+#     NOTE 1：the group must be a private group and linked to the approve channel, anyone in the group can use the /reply command to reply to the submission user
 #     NOTE 2：bot must be an admin in the group with necessary permissions, otherwise it cannot forward the reply to the user
 # jp: 审査グループ、承認チャンネルにリンクされたディスカッション
 #     NOTE 1：グループはプライベートグループでなければならず、承認チャンネルにリンクされている必要があります。 グループ内の誰でも/replyコマンドを使用して投稿ユーザーに返信できます

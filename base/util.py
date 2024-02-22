@@ -79,3 +79,10 @@ def get_asyncio_params(key):
         logging.warn(f"get param from task: {key} = None")
         return None
     return getattr(task, key, None)
+
+
+def find_enum_by_string(enum_class, target_string):
+    for member in enum_class.__members__.values():
+        if member.name.lower() == target_string.lower():
+            return member
+    return None
