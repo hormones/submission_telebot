@@ -61,7 +61,7 @@
 ```bash
 wget https://raw.githubusercontent.com/hormones/submission_telebot/main/Dockerfile -O Dockerfile
 wget https://raw.githubusercontent.com/hormones/submission_telebot/main/docker-compose.yml -O docker-compose.yml
-wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config.yml -O config.yml
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config_sample.yml -O config.yml
 ```
 2. 修改 `config.yml` 文件（或者修改`docker-compose.yml`配置环境变量），请认真阅读注释并填入正确的配置
 3. 运行 `docker-compose up -d` 启动服务，第一次启动会拉取镜像、安装依赖，可能需要等待一段时间
@@ -78,6 +78,8 @@ python3 -m venv venv
 source ./venv/bin/activate
 pip install -U pip setuptools
 pip install -r requirements.txt
+
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config_sample.yml -O config.yml
 ```
 2. 修改 `config.yml` 文件（或者配置环境变量），认真阅读注释并填入正确的配置
 3. 运行 `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &` 启动服务

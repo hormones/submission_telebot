@@ -61,7 +61,7 @@
 ```bash
 wget https://raw.githubusercontent.com/hormones/submission_telebot/main/Dockerfile -O Dockerfile
 wget https://raw.githubusercontent.com/hormones/submission_telebot/main/docker-compose.yml -O docker-compose.yml
-wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config.yml -O config.yml
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config_sample.yml -O config.yml
 ```
 2. `config.yml`ファイルを変更する（または`docker-compose.yml`ファイルの環境変数を変更する）。コメントをよく読んで、正しい設定を入力してください
 3. `docker-compose up -d`を実行してサービスを起動します。初回起動時にイメージを取得し、依存関係をインストールする必要があるため、しばらくお待ちください
@@ -79,6 +79,8 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -U pip setuptools
 pip install -r requirements.txt
+
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config_sample.yml -O config.yml
 ```
 2. `config.yml`ファイルを変更します（または環境変数を設定します）。コメントを読んで正しい設定を入力してください。
 3. `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &`を実行してサービスを起動します。

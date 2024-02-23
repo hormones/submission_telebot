@@ -61,7 +61,7 @@ When deploying with `docker`, you need to install `docker` and `docker-compose` 
 ```bash
 wget https://raw.githubusercontent.com/hormones/submission_telebot/main/Dockerfile -O Dockerfile
 wget https://raw.githubusercontent.com/hormones/submission_telebot/main/docker-compose.yml -O docker-compose.yml
-wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config.yml -O config.yml
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config_sample.yml -O config.yml
 ```
 2. Modify `config.yml` file (or modify `docker-compose.yml` to configure environment variables), please read the comments carefully and fill in the correct configuration
 3. Run `docker-compose up -d` to start the service. The first time you start it, you will pull the image and install the dependencies, which may take a while
@@ -79,6 +79,8 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -U pip setuptools
 pip install -r requirements.txt
+
+wget https://raw.githubusercontent.com/hormones/submission_telebot/main/config_sample.yml -O config.yml
 ```
 2. Modify file `config.yml` or set environment variable, see config file for more detail
 3. Run `source ./venv/bin/activate && nohup python main.py >/dev/null 2>&1 &` to start bot
