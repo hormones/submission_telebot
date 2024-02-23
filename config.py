@@ -15,7 +15,7 @@ __config: dict = yaml.safe_load(__fs)
 
 DEBUG: bool = util.get_config(__config, 'debug', False)
 APPROVE: bool = util.get_config(__config, 'approve', True)
-USER_COMMAND_KEYS: typing.List[str] = util.get_config(__config, 'user_commands', ["start", "lang", "help"])
+USER_COMMAND_KEYS: typing.List[str] = util.get_config(__config, 'user_commands', ["help", "lang", "feedback"])
 SHOW_BOT: bool = util.get_config(__config, 'show_bot', True)
 SHOW_CHANNEL: bool = util.get_config(__config, 'show_channel', True)
 VERSION: str = util.get_config(__config, 'version', "DEV")

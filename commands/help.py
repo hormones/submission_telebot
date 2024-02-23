@@ -19,6 +19,9 @@ def _get_gelp_text(event, is_admin, args=None):
     # get command help detail if exists args
     if args and args in __common__.ALL_COMMANDS:
         command_info = __common__.ALL_COMMANDS[args]
+        if not is_admin and not command_info['user']:
+            return i18n('$unknown_command$')
+
         if 'help_detail' in command_info:
             return i18n(command_info['help_detail'])
         else:

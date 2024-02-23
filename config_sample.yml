@@ -48,7 +48,7 @@ bot_token: 11111111111111111111
 # zh: 是否启用代理
 # en: whether to enable proxy
 # jp: プロキシを有効にするかどうか
-proxy: False
+proxy: False # True/False
 # zh: 代理类型，支持http、socks4、socks5
 # en: proxy type, support http, socks4, socks5
 # jp: プロキシタイプ、http、socks4、socks5

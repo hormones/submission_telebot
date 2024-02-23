@@ -91,23 +91,33 @@ async def init():
 # there are all the commands that you can use
 ALL_COMMANDS = {
     "help": {
+        "user": "help" in config.USER_COMMAND_KEYS,
         "desc": "$command_help_desc$",
     },
     "ban": {
+        "user": "ban" in config.USER_COMMAND_KEYS,
         "desc": "$command_ban_desc$",
         "help_detail": "$command_ban_help_detail$"
     },
     "lang": {
+        "user": "lang" in config.USER_COMMAND_KEYS,
         "desc": "$command_lang_desc$",
+        "help_detail": "$command_lang_help_desc$",
     },
     "setting": {
+        "user": "setting" in config.USER_COMMAND_KEYS,
         "desc": "$command_setting_desc$",
+        "help_detail": "$command_setting_help_desc$",
     },
     "feedback": {
+        "user": "feedback" in config.USER_COMMAND_KEYS,
         "desc": "$command_feedback_desc$",
+        "help_detail": "$command_feedback_help_desc$",
     },
     "reply": {
+        "user": "reply" in config.USER_COMMAND_KEYS,
         "desc": "$command_reply_desc$",
+        "help_detail": "$command_reply_help_desc$",
     },
 }
 # I18N_ADMIN_COMMANDS/I18N_USER_COMMANDS/I18N_REPLY_COMMANDS, commands cached by lang_code ---> {lang_code: [BotCommand]}

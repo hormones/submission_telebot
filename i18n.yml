@@ -8,6 +8,11 @@ command_lang_desc:
   en: please select a language
   jp: 言語を選択してください
 
+command_lang_help_desc:
+  zh: 输入 /lang 切换语言
+  en: send /lang to switch language
+  jp: /langを送信して言語を変更
+
 command_help_desc:
   zh: 查看帮助
   en: help
@@ -75,6 +80,20 @@ command_setting_desc:
   en: bot settings
   jp: bot設定
 
+command_setting_help_desc:
+  zh: |-
+    输入 /setting 查看并修改配置，目前仅支持修改DEBUG模式和审核模式
+    DEBUG模式: 开启DEBUG模式后会输出更加详细的日志，方便调试
+    审核模式：开启审核模式后，用户发送的消息会被转发到审核频道，审核人员审核通过后，消息才会被转发到发布频道，关闭审核模式后，用户发送的消息会被直接转发到发布频道
+  en: |-
+    send /setting to check and modify the setting, currently only supports to modify debug mode and approve mode
+    debug mode: debug mode will output more detailed logs
+    approve mode: forward messages to the submission channel after approved, when closed, messages will be forwarded directly to the submission channel
+  jp: |-
+    /setting コマンドを送信して設定を確認して変更します。現在の設定は、DEBUGモードと審査モードのみがサポートされています
+    DEBUGモード：DEBUGモードをオンにすると、詳細なログが出力されます。デバッグモードをオンにすると、メッセージが送信されます。
+    审査モード：審査モードをオンにすると、メッセージが送信されます。審査モードをオフにすると、メッセージが直接送信されます。
+
 command_setting_text:
   zh: |-
     当前状态：
@@ -92,6 +111,11 @@ command_setting_text:
 command_reply_desc:
   zh: 回复投稿用户消息
   en: reply the user
+  jp: 投稿ユーザーにメッセージを返信する
+
+command_reply_help_desc:
+  zh: 针对用户投稿，进行回复说明
+  en: reply the user, for user submission
   jp: 投稿ユーザーにメッセージを返信する
 
 command_reply_comments:
@@ -123,6 +147,17 @@ command_ban_desc:
   zh: 列出禁封用户/禁封用户/解封用户
   en: list banned user/ban user/unban user
   jp: 禁止されたユーザーをリスト表示/ユーザーを禁止/ユーザーの禁止を解除する
+
+command_ban_help_detail:
+  zh: |-
+    列出禁封用户: 直接输入 /ban
+    禁封/解封用户: 输入 /ban id/username, 会输出用户禁封状态, 按提示操作即可
+  en: |-
+    list banned user: just input /ban
+    ban/unban user: input /ban id/username, will output user ban status, then operate by prompt
+  jp: |-
+    禁止されたユーザーをリスト表示： /ban
+    ユーザーを禁止/ユーザーを解禁： /ban id/username
 
 command_ban_user_status:
   zh: |-
@@ -160,6 +195,11 @@ command_feedback_desc:
   zh: 反馈
   en: feedback
   jp: フィードバック
+
+command_feedback_help_desc:
+  zh: 如果对此频道有任何意见或建议，欢迎使用 /feedback 发送反馈内容
+  en: if you have any suggestion or opinion about this channel, please use /feedback to send feedback content
+  jp: このチャンネルに関する意見や提案がありましたら、/feedbackコマンドを使用してください
 
 command_feedback_null_error:
   zh: 反馈内容不能为空，请重新输入
