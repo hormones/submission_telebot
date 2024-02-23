@@ -11,9 +11,9 @@
 - [x] Anonymous not allowed for forwarded message
 - [x] User can feedback with `/feedback` command
 - [x] Docker support
+- [x] Submission statistics
 
 ## TODO
-- [ ] Submission statistics
 - [ ] Submission limit, like word limit, image limit and so on
 - [ ] Comments in the submission through BOT (very useful when anonymous)
 
@@ -96,6 +96,7 @@ BOT administrators can use all commands by default, can not be modified
 | /help     | Optional, command name               | All                    | in BOT                            | View help, you can enter command parameters to view the corresponding command detailed usage method |
 | /setting  | -                                    | BOT admin              |  in BOT                            | View/modify some settings                                    |
 | /ban      | Optional, user ID/username/@username | BOT admin              |  in BOT                            | View/ban/unban user                                          |
+| /statistics | -                       | BOT admin        | in BOT                | statistics submission data                           |
 | /lang     | -                                    | All                    |  in BOT                            | Multi-language                                               |
 | /feedback | Required, feedback content           | User                   |  in BOT                            | Feedback                                                     |
 | /reply    | Required, reply content              | approval channel members  |  in approval channel message comments | Reply to user with reason when submission is approved or rejected  |

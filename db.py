@@ -108,11 +108,14 @@ def submission_insert_ignore(obj: object):
 def submission_update(obj: object):
     _update('submission', obj.__dict__, 'id')
 
+
 def submission_exists_by_approval_id(approval_id):
     return _exists('submission', 'approval_id', approval_id)
 
+
 def submission_update_by_approval_id(dic: dict):
     _update('submission', dic, 'approval_id')
+
 
 def submission_query(id) -> Submission:
     row = _query_one_by_field('submission', 'id', id)
@@ -156,7 +159,8 @@ def chats_banned(page_number=1, page_size=10) -> typing.List[Chat]:
     cursor = _conn.cursor()
     total = cursor.execute(f"SELECT count(1) FROM chat WHERE status=0").fetchone()[0]
     if total and offset < total:
-        rows = cursor.execute(f"SELECT * FROM chat WHERE status=0 ORDER BY create_time LIMIT {page_size} OFFSET {offset}").fetchall()
+        rows = cursor.execute(
+            f"SELECT * FROM chat WHERE status=0 ORDER BY create_time LIMIT {page_size} OFFSET {offset}").fetchall()
         data = [Chat(*row) for row in rows]
     cursor.close()
     return (total, data)
@@ -186,3 +190,23 @@ def chat_query_all() -> typing.List[Chat]:
 
 def chat_exists(chat_id) -> bool:
     return _exists('chat', 'chat_id', chat_id)
+
+
+def submission_statistics(start=None):
+    cursor = _conn.cursor()
+    query = """
+        SELECT 
+            COUNT(*) AS total,
+            SUM(CASE WHEN approval_result = 1 THEN 1 ELSE 0 END) AS passed,
+            SUM(CASE WHEN approval_result = 0 THEN 1 ELSE 0 END) AS rejected,
+            SUM(CASE WHEN approval_result IS NULL THEN 1 ELSE 0 END) AS not_processed,
+            ROUND(SUM(CASE WHEN approval_result = 1 THEN 1 ELSE 0 END)*100.0/ COUNT(*), 2) AS passed_rate
+        FROM submission
+    """
+
+    if start:
+        query = f"{query} WHERE create_time >= date('now', 'start of {start}') AND create_time <= datetime('now', 'localtime')"
+
+    result = cursor.execute(query).fetchone()
+    cursor.close()
+    return result

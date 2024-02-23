@@ -95,7 +95,7 @@ ALL_COMMANDS = {
         "desc": "$command_help_desc$",
     },
     "ban": {
-        "user": "ban" in config.USER_COMMAND_KEYS,
+        "user": False,
         "desc": "$command_ban_desc$",
         "help_detail": "$command_ban_help_detail$"
     },
@@ -105,7 +105,7 @@ ALL_COMMANDS = {
         "help_detail": "$command_lang_help_desc$",
     },
     "setting": {
-        "user": "setting" in config.USER_COMMAND_KEYS,
+        "user": False,
         "desc": "$command_setting_desc$",
         "help_detail": "$command_setting_help_desc$",
     },
@@ -118,6 +118,11 @@ ALL_COMMANDS = {
         "user": "reply" in config.USER_COMMAND_KEYS,
         "desc": "$command_reply_desc$",
         "help_detail": "$command_reply_help_desc$",
+    },
+    "statistics": {
+        "user": False,
+        "desc": "$command_statistics_desc$",
+        "help_detail": "$command_statistics_help_desc$",
     },
 }
 # I18N_ADMIN_COMMANDS/I18N_USER_COMMANDS/I18N_REPLY_COMMANDS, commands cached by lang_code ---> {lang_code: [BotCommand]}

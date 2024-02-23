@@ -144,9 +144,9 @@ super_admin_operate_error:
   jp: 超級管理者を操作できません
 
 command_ban_desc:
-  zh: 列出禁封用户/禁封用户/解封用户
-  en: list banned user/ban user/unban user
-  jp: 禁止されたユーザーをリスト表示/ユーザーを禁止/ユーザーの禁止を解除する
+  zh: 列出/禁封/解封用户
+  en: list/ban/unban user
+  jp: 禁止されたユーザーをリスト表示/ユーザーを禁止/ユーザーを解禁
 
 command_ban_help_detail:
   zh: |-
@@ -221,6 +221,41 @@ command_feedback_text:
   zh: 已收到您的反馈，感谢您的支持！
   en: your feedback has been received, thank you for your support!
   jp: フィードバックを受け取りました。ありがとうございます！
+
+command_statistics_desc:
+  zh: 数据统计
+  en: data statistics
+  jp: データ統計
+
+command_statistics_help_desc:
+  zh: 查看投稿统计信息，包含今日、本月、本年、总计投稿数、通过率等
+  en: view statistics information, including today, this month, this year, total submission, passed rate
+  jp: 投稿統計情報を確認できます。
+
+statistics_display_daily:
+  zh: "日：投稿 {} 个，通过 {} 个，拒绝 {} 个，待处理 {} 个，通过率 {}%"
+  en: "daily: submitted {} times, passed {} times, rejected {} times, pending {} times, passed rate {}%"
+  jp: "日: 投稿 {} 件、通過 {} 件、拒否 {} 件、待機 {} 件、通過率 {}%"
+
+statistics_display_weekly:
+  zh: "周：投稿 {} 个，通过 {} 个，拒绝 {} 个，待处理 {} 个，通过率 {}%"
+  en: "weekly: submitted {} times, passed {} times, rejected {} times, pending {} times, passed rate {}%"
+  jp: "週: 投稿 {} 件、通過 {} 件、拒否 {} 件、待機 {} 件、通過率 {}%"
+
+statistics_display_monthly:
+  zh: "月：投稿 {} 个，通过 {} 个，拒绝 {} 个，待处理 {} 个，通过率 {}%"
+  en: "monthly: submitted {} times, passed {} times, rejected {} times, pending {} times, passed rate {}%"
+  jp: "月: 投稿 {} 件、通過 {} 件、拒否 {} 件、待機 {} 件、通過率 {}%"
+
+statistics_display_yearly:
+  zh: "年：投稿 {} 个，通过 {} 个，拒绝 {} 个，待处理 {} 个，通过率 {}%"
+  en: "yearly: submitted {} times, passed {} times, rejected {} times, pending {} times, passed rate {}%"
+  jp: "年: 投稿 {} 件、通過 {} 件、拒否 {} 件、待機 {} 件、通過率 {}%"
+
+statistics_display_total:
+  zh: "总：投稿 {} 个，通过 {} 个，拒绝 {} 个，待处理 {} 个，通过率 {}%"
+  en: "total: submitted {} times, passed {} times, rejected {} times, pending {} times, passed rate {}%"
+  jp: "合: 投稿 {} 件、通過 {} 件、拒否 {} 件、待機 {} 件、通過率 {}%"
 
 is_push_anonymous:
   zh: 是否匿名投稿
